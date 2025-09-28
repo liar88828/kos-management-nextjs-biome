@@ -1,103 +1,161 @@
-import Image from "next/image";
+"use client";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
+} from "@/components/ui/chart";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 
-export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+const pemasukanData = [
+    { bulan: "Jan", masuk: 15_000_000, keluar: 4_000_000 },
+    { bulan: "Feb", masuk: 15_000_000, keluar: 4_500_000 },
+    { bulan: "Mar", masuk: 16_000_000, keluar: 5_200_000 },
+    { bulan: "Apr", masuk: 16_500_000, keluar: 4_900_000 },
+];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+export default function DashboardPage() {
+    // NOTE: This is a server component; charts render via lightweight client wrappers in ui/chart
+    const penyewaBelumBayar = [
+        { nama: "Andi", kamar: "A-01", jatuhTempo: "10 Sep 2025" },
+        { nama: "Siti", kamar: "B-03", jatuhTempo: "12 Sep 2025" },
+    ];
+
+    return (
+        <div className="mx-auto max-w-6xl space-y-6 px-4 py-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-muted-foreground text-sm">
+                            Kamar
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex items-center justify-between">
+                        <div>
+                            <div className="font-semibold text-2xl">32</div>
+                            <div className="text-muted-foreground text-xs">
+                                Total
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <div className="text-lg">24 terisi</div>
+                            <div className="text-muted-foreground text-xs">
+                                6 kosong • 2 renovasi
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-muted-foreground text-sm">
+                            Pendapatan Bulan Ini
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="font-semibold text-2xl">
+                            Rp 16.500.000
+                        </div>
+                        <div className="text-muted-foreground text-xs">
+                            +3% dari bulan lalu
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-muted-foreground text-sm">
+                            Tagihan Tertunggak
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="font-semibold text-2xl">2</div>
+                        <div className="text-muted-foreground text-xs">
+                            Butuh tindak lanjut
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+                <Card className="lg:col-span-2">
+                    <CardHeader>
+                        <CardTitle>Grafik Pemasukan vs Pengeluaran</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <ChartContainer
+                            className="h-[280px]"
+                            config={ {
+                                masuk: {
+                                    label: "Pemasukan",
+                                    color: "hsl(var(--primary))",
+                                },
+                                keluar: {
+                                    label: "Pengeluaran",
+                                    color: "hsl(var(--muted-foreground))",
+                                },
+                            } }
+                        >
+                            <BarChart data={ pemasukanData }>
+                                <CartesianGrid
+                                    strokeDasharray="3 3"
+                                    vertical={ false }
+                                />
+                                <XAxis
+                                    axisLine={ false }
+                                    dataKey="bulan"
+                                    tickLine={ false }
+                                />
+                                <ChartTooltip
+                                    content={ <ChartTooltipContent/> }
+                                />
+                                <Bar
+                                    dataKey="masuk"
+                                    fill="var(--color-masuk)"
+                                    radius={ 4 }
+                                />
+                                <Bar
+                                    dataKey="keluar"
+                                    fill="var(--color-keluar)"
+                                    radius={ 4 }
+                                />
+                            </BarChart>
+                        </ChartContainer>
+                    </CardContent>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Penyewa Belum Bayar</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Nama</TableHead>
+                                    <TableHead>Kamar</TableHead>
+                                    <TableHead>Jatuh Tempo</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                { penyewaBelumBayar.map((p) => (
+                                    <TableRow key={ p.nama }>
+                                        <TableCell>{ p.nama }</TableCell>
+                                        <TableCell>{ p.kamar }</TableCell>
+                                        <TableCell>{ p.jatuhTempo }</TableCell>
+                                    </TableRow>
+                                )) }
+                            </TableBody>
+                        </Table>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+    );
 }
