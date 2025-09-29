@@ -5,3 +5,8 @@ export function formatPrice(rawPrice: number) {
         style: "currency",
     }).format(rawPrice);
 }
+
+
+export function formatDate(rawDate: string | number) {
+    return new Date(rawDate).toLocaleString("id-ID");
+}

@@ -1,6 +1,6 @@
-import { formatPrice } from "@/app/rooms/format";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatPrice } from "@/lib/format";
 
 export default function ReportsPage() {
     // Static placeholders to represent summary metrics
@@ -10,7 +10,7 @@ export default function ReportsPage() {
     const penyewaAktif = 24;
 
     return (
-        <div className="mx-auto max-w-6xl space-y-6 px-4 py-6">
+        <>
             <div className="grid grid-cols-2 gap-4">
                 <Card>
                     <CardHeader>
@@ -68,6 +68,6 @@ export default function ReportsPage() {
                     </Button>
                 </CardContent>
             </Card>
-        </div>
+        </>
     );
 }

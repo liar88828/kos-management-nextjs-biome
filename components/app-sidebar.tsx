@@ -1,3 +1,4 @@
+'use client'
 import {
     BarChart,
     Bed,
@@ -9,6 +10,7 @@ import {
 } from "lucide-react";
 import type { Route } from "next";
 import Link from "next/link";
+import { useParams, usePathname } from "next/navigation";
 import type * as React from "react";
 import {
     Sidebar,
@@ -53,15 +55,16 @@ const navData: NavData[] = [
                 url: "/rooms",
             },
             {
-                icon: Users,
-                title: "Penyewa",
-                url: "/tenants",
-            },
-            {
                 icon: CreditCard,
                 title: "Pembayaran",
                 url: "/payments",
             },
+            {
+                icon: Users,
+                title: "Penyewa",
+                url: "/tenants",
+            },
+
             {
                 icon: Receipt,
                 title: "Biaya",
@@ -79,6 +82,8 @@ const navData: NavData[] = [
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const pathname = usePathname()
+    console.log(pathname)
     return (
         <Sidebar { ...props }>
             <SidebarHeader>
@@ -129,6 +134,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                                     >
                                                         <SidebarMenuSubButton
                                                             asChild
+                                                            isActive={ pathname.includes(sub.url) }
                                                         >
                                                             <Link
                                                                 className="flex items-center gap-2 text-nowrap"

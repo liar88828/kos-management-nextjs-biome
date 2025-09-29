@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Room } from "@/app/rooms/room-type";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -20,25 +21,15 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-export type Room = {
-    id: string;
-    nomor: string;
-    status: "kosong" | "terisi" | "renovasi";
-    hargaTahunan?: number;
-    fasilitas: string[];
-    foto?: string;
-    hargaBulanan: number;
-};
-
 type Props = {
     defaultValue?: Partial<Room>;
-    onSubmit: (room: Room) => void;
+    onSubmitAction: (room: Room) => void;
     triggerLabel?: string;
 };
 
 
 export function RoomForm({
-                             onSubmit,
+                             onSubmitAction,
                              defaultValue,
                              triggerLabel = "Tambah Kamar",
                          }: Props) {
@@ -71,18 +62,23 @@ export function RoomForm({
     function handleSubmit() {
         if (!nomor || !hargaBulanan) return;
         const r: Room = {
+            createdAt: new Date(),
             fasilitas: fasilitas
             .split(",")
             .map((s) => s.trim())
             .filter(Boolean),
             foto: foto || undefined,
             hargaBulanan: Number(hargaBulanan),
-            hargaTahunan: hargaTahunan ? Number(hargaTahunan) : undefined,
+            hargaTahunan: hargaTahunan ? Number(hargaTahunan) : 0,
+            historyInvoice: [],
             id: defaultValue?.id ?? crypto.randomUUID(),
+            lantai: 0,
+            maxPenghuni: 0,
             nomor,
             status,
+            updatedAt: new Date(),
         };
-        onSubmit(r);
+        onSubmitAction(r);
         setOpen(false);
     }
 

@@ -30,7 +30,7 @@ export default function DashboardPage() {
     ];
 
     return (
-        <div className="mx-auto max-w-6xl space-y-6 px-4 py-6">
+        <>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 <Card>
                     <CardHeader>
@@ -156,6 +156,6 @@ export default function DashboardPage() {
                     </CardContent>
                 </Card>
             </div>
-        </div>
+        </>
     );
 }

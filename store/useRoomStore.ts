@@ -1,15 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-export type Room = {
-    id: string;
-    nomor: string;
-    status: "kosong" | "terisi" | "renovasi";
-    hargaTahunan?: number;
-    fasilitas: string[];
-    foto?: string;
-    hargaBulanan: number;
-};
+import type { Room } from "@/app/rooms/room-type";
 
 type RoomStore = {
     rooms: Room[];
@@ -25,12 +16,17 @@ type RoomStore = {
 export const useRoomStore = create<RoomStore>()(
     persist(
         (set, get) => ({
-            addRoom: (room) =>
-                set((state) => ({ rooms: [ room, ...state.rooms ] })),
-            deleteRoom: (id) =>
+            addRoom: (room) => {
+                set((state) => ({ rooms: [ room, ...state.rooms ] }));
+            },
+
+            deleteRoom: (id) => {
                 set((state) => ({
                     rooms: state.rooms.filter((r) => r.id !== id),
-                })),
+                }));
+            },
+            query: "",
+            rooms: [],
             // get filtered() {
             //     const q = get().query.toLowerCase();
             //     return get().rooms.filter(
@@ -42,16 +38,16 @@ export const useRoomStore = create<RoomStore>()(
             //             (r.hargaTahunan?.toString().includes(q) ?? false),
             //     );
             // },
-            query: "",
-            rooms: [],
+
             setQuery: (query) => set({ query }),
             setRooms: (rooms) => set({ rooms }),
-            updateRoom: (room) =>
+            updateRoom: (room) => {
                 set((state) => ({
                     rooms: state.rooms.map((r) =>
                         r.id === room.id ? room : r,
                     ),
-                })),
+                }));
+            },
         }),
         {
             name: "room-storage", // key untuk localStorage
