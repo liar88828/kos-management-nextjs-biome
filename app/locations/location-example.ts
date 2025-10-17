@@ -3,6 +3,7 @@ import type { Invoice } from "@/app/payments/invoice-type";
 import { exampleRooms } from "@/app/rooms/room-example";
 import type { Tenant } from "@/app/tenants/tenant-type";
 
+
 export const tenantExample: Tenant = {
     id: "t1",
     kamar: "A-01",
@@ -32,7 +33,7 @@ export const historyExample: Invoice = {
 
 export const locations: LocationType[] = [
     {
-
+        id_key: "loc-001",
         address: "Jl. Melati No. 10",
         availableRooms: 5,
         city: "Bandung",
@@ -40,7 +41,6 @@ export const locations: LocationType[] = [
         createdAt: new Date(),
         description: "Kos nyaman dekat kampus dengan fasilitas lengkap.",
         email: "kosmawar@example.com",
-        id_key: "loc-001",
         name: "Kos Mawar Indah",
         phone: "081234567890",
         postalCode: "40123",
@@ -50,6 +50,7 @@ export const locations: LocationType[] = [
         updatedAt: new Date(),
     },
     {
+        id_key: "loc-002",
         address: "Jl. Kenanga No. 21",
         availableRooms: 3,
         city: "Jakarta",
@@ -57,7 +58,6 @@ export const locations: LocationType[] = [
         createdAt: new Date(),
         description: "Kos murah meriah dengan fasilitas standar.",
         email: "kosanggrek@example.com",
-        id_key: "loc-002",
         name: "Kos Anggrek Asri",
         phone: "082198765432",
         postalCode: "10310",

@@ -1,6 +1,7 @@
 import type { Invoice } from "@/app/payments/invoice-type";
 
-export type Room = {
+
+export type RoomType = {
     id: string;
     nomor: string; // nomor kamar
     status: "kosong" | "terisi" | "renovasi";

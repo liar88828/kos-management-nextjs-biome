@@ -1,9 +1,7 @@
 "use client";
 import { Eye } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import { LocationDialogForm } from "@/app/locations/location-form";
-import type { LocationType } from "@/app/locations/location-type";
+import { LocationDialogForm } from "@/app/locations/location-form-dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -16,16 +14,16 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import { formatPrice } from "@/lib/format";
+import { useLocationStore } from "@/store/useLocationStore";
 
 
-export function LocationTable({ locations }: { locations: LocationType[] }) {
-    const [ data ] = useState<LocationType[]>(locations);
-
+export function LocationTable() {
+    const { addLocation, locations } = useLocationStore();
     return (
         <Card>
             <CardHeader className="flex justify-between">
                 <CardTitle>Location</CardTitle>
-                <LocationDialogForm/>
+                <LocationDialogForm saveData={ addLocation }/>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -40,8 +38,8 @@ export function LocationTable({ locations }: { locations: LocationType[] }) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        { data.map((loc) => (
-                            <TableRow key={ loc.id_key }>
+                        { locations.map((loc) => (
+                            <TableRow key={ loc.id }>
                                 <TableCell className="font-medium">
                                     <p className={ "font-bold" }>{ loc.name }</p>
                                     <p className={ "text-primary/70" }>
@@ -54,24 +52,24 @@ export function LocationTable({ locations }: { locations: LocationType[] }) {
                                         { loc.totalRooms }/{ loc.availableRooms }
                                     </p>
 
-                                    { loc.room?.map((item) => (
-                                        <p key={ item.id }>
-                                            { item.nomor }-{ item.status }
+                                    {/*{loc.room?.map((item) => (
+                                        <p key={item.id}>
+                                            {item.nomor}-{item.status}
                                         </p>
-                                    )) }
+                                    ))}*/ }
                                 </TableCell>
                                 <TableCell>
                                     <p className={ "font-bold" }>
                                         { loc.contactPerson } ({ loc.phone })
                                     </p>
                                     <p>
-                                        Bulan:{ " " }
+                                        Bulan:
                                         { formatPrice(
                                             loc.room?.[0].hargaBulanan ?? 0,
                                         ) }
                                     </p>
                                     <p>
-                                        Tahun:{ " " }
+                                        Tahun:
                                         { formatPrice(
                                             loc.room?.[0].hargaTahunan ?? 0,
                                         ) }
@@ -89,7 +87,7 @@ export function LocationTable({ locations }: { locations: LocationType[] }) {
                                         // size={ "icon" }
                                         variant="outline"
                                     >
-                                        <Link href={ `/locations/${ loc.id_key }` }>
+                                        <Link href={ `/locations/${ loc.id }` }>
                                             <Eye/> Detail Kos
                                         </Link>
                                     </Button>

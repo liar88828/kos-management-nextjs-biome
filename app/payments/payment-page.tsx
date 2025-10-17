@@ -1,7 +1,6 @@
 "use client";
 import { Eye } from "lucide-react";
 import Link from "next/link";
-import type { Invoice } from "@/app/payments/invoice-type";
 import { PaymentsForm } from "@/app/payments/payment-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,15 +12,18 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { useInvoiceStore } from "@/store/useInvoiceStore";
 
 
-export function PaymentPage({ invoices }: { invoices: Invoice[] }) {
+export function PaymentPage() {
+// { invoices }: { invoices: Invoice[] }
+    const { invoices, addInvoice } = useInvoiceStore();
     return (
         <Card>
             <CardHeader>
                 <div className="flex items-center justify-between">
                     <CardTitle>Pembayaran</CardTitle>
-                    <PaymentsForm/>
+                    <PaymentsForm saveForm={ addInvoice }/>
                 </div>
                 <div className="flex items-center gap-3">
                     <div className="text-muted-foreground text-sm">

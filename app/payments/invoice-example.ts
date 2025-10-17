@@ -4,7 +4,7 @@ import { exampleTenant } from "@/app/tenants/tenant-example";
 export const exampleInvoices: Invoice[] = [
     {
         id: "INV001",
-        Customer: [ exampleTenant ],
+        Customer: [exampleTenant],
         catatan: "Pembayaran diterima tepat waktu",
         dibuatOleh: "Admin1",
         dibuatPada: new Date("2025-09-01T08:30:00"),
@@ -21,7 +21,7 @@ export const exampleInvoices: Invoice[] = [
         tanggalTerbit: "2025-09-01",
     },
     {
-        Customer: [ exampleTenant ],
+        Customer: [exampleTenant],
         catatan: "Belum melakukan pembayaran",
         denda: 50000,
         dibuatOleh: "Admin1",

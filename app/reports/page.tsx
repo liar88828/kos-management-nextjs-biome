@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatPrice } from "@/lib/format";
 
+
 export default function ReportsPage() {
     // Static placeholders to represent summary metrics
     const pendapatanBulanan = 16500000;

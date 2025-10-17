@@ -1,9 +1,3 @@
-"use client";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -24,27 +18,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
-const formSchema = z.object({
-    address: z.string().min(1, "Address is required"),
-    availableRooms: z.number().min(0),
-    city: z.string().min(1, "City is required"),
-    contactPerson: z.string().min(1, "Contact person required"),
-    description: z.string().optional(),
-    email: z.email().optional(),
-    key: z.string().min(1, "Key is required"),
-    name: z.string().min(1, "Name is required"),
-    phone: z.string().min(8, "Phone is required"),
-    postalCode: z.string().min(4, "Postal Code required"),
-    province: z.string().min(1, "Province is required"),
-    totalRooms: z.number().min(0),
-});
-
-export type LocationSchema = z.infer<typeof formSchema>;
-
-
-export function LocationDialogForm() {
-    const form = useForm<LocationSchema>({
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Plus } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { LocationSchema, type LocationType } from "./location-schema";
+export function LocationDialogForm({
+    saveData,
+}: {
+    saveData: (data: LocationType) => void;
+}) {
+    const form = useForm<LocationType>({
         defaultValues: {
             address: "",
             availableRooms: 0,
@@ -59,20 +42,19 @@ export function LocationDialogForm() {
             province: "",
             totalRooms: 0,
         },
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(LocationSchema),
     });
 
-
-    function onSubmit(values: LocationSchema) {
+    function onSubmit(values: LocationType) {
         console.log("Submitted Location:", values);
+        saveData(values);
     }
-
 
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <Button>
-                    <Plus/>
+                    <Plus />
                     Add Location
                 </Button>
             </DialogTrigger>
@@ -84,178 +66,178 @@ export function LocationDialogForm() {
                     </DialogDescription>
                 </DialogHeader>
 
-                <Form { ...form }>
+                <Form {...form}>
                     <form
                         className="space-y-4"
-                        onSubmit={ form.handleSubmit(onSubmit) }
+                        onSubmit={form.handleSubmit(onSubmit)}
                     >
                         <FormField
-                            control={ form.control }
+                            control={form.control}
                             name="key"
-                            render={ ({ field }) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Key</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Unique key"
-                                            { ...field }
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
                                 </FormItem>
-                            ) }
+                            )}
                         />
 
                         <FormField
-                            control={ form.control }
+                            control={form.control}
                             name="name"
-                            render={ ({ field }) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Location name"
-                                            { ...field }
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
                                 </FormItem>
-                            ) }
+                            )}
                         />
 
                         <FormField
-                            control={ form.control }
+                            control={form.control}
                             name="address"
-                            render={ ({ field }) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Address</FormLabel>
                                     <FormControl>
                                         <Textarea
                                             placeholder="Full address"
-                                            { ...field }
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
                                 </FormItem>
-                            ) }
+                            )}
                         />
 
                         <div className="grid grid-cols-2 gap-2">
                             <FormField
-                                control={ form.control }
+                                control={form.control}
                                 name="city"
-                                render={ ({ field }) => (
+                                render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>City</FormLabel>
                                         <FormControl>
                                             <Input
                                                 placeholder="City"
-                                                { ...field }
+                                                {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage/>
+                                        <FormMessage />
                                     </FormItem>
-                                ) }
+                                )}
                             />
 
                             <FormField
-                                control={ form.control }
+                                control={form.control}
                                 name="province"
-                                render={ ({ field }) => (
+                                render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Province</FormLabel>
                                         <FormControl>
                                             <Input
                                                 placeholder="Province"
-                                                { ...field }
+                                                {...field}
                                             />
                                         </FormControl>
-                                        <FormMessage/>
+                                        <FormMessage />
                                     </FormItem>
-                                ) }
+                                )}
                             />
                         </div>
 
                         <FormField
-                            control={ form.control }
+                            control={form.control}
                             name="postalCode"
-                            render={ ({ field }) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Postal Code</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Postal code"
-                                            { ...field }
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
                                 </FormItem>
-                            ) }
+                            )}
                         />
 
                         <FormField
-                            control={ form.control }
+                            control={form.control}
                             name="contactPerson"
-                            render={ ({ field }) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Contact Person</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Person in charge"
-                                            { ...field }
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
                                 </FormItem>
-                            ) }
+                            )}
                         />
 
                         <FormField
-                            control={ form.control }
+                            control={form.control}
                             name="phone"
-                            render={ ({ field }) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Phone</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Phone number"
-                                            { ...field }
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
                                 </FormItem>
-                            ) }
+                            )}
                         />
 
                         <FormField
-                            control={ form.control }
+                            control={form.control}
                             name="email"
-                            render={ ({ field }) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
                                         <Input
                                             placeholder="Optional email"
                                             type="email"
-                                            { ...field }
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
                                 </FormItem>
-                            ) }
+                            )}
                         />
 
                         <div className="grid grid-cols-2 gap-2">
                             <FormField
-                                control={ form.control }
+                                control={form.control}
                                 name="totalRooms"
-                                render={ ({ field }) => (
+                                render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Total Rooms</FormLabel>
                                         <FormControl>
                                             <Input
-                                                defaultValue={ field.value }
-                                                onChange={ (e) =>
+                                                defaultValue={field.value}
+                                                onChange={(e) =>
                                                     field.onChange(
                                                         Number(e.target.value),
                                                     )
@@ -263,21 +245,21 @@ export function LocationDialogForm() {
                                                 type="number"
                                             />
                                         </FormControl>
-                                        <FormMessage/>
+                                        <FormMessage />
                                     </FormItem>
-                                ) }
+                                )}
                             />
 
                             <FormField
-                                control={ form.control }
+                                control={form.control}
                                 name="availableRooms"
-                                render={ ({ field }) => (
+                                render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Available Rooms</FormLabel>
                                         <FormControl>
                                             <Input
-                                                defaultValue={ field.value }
-                                                onChange={ (e) =>
+                                                defaultValue={field.value}
+                                                onChange={(e) =>
                                                     field.onChange(
                                                         Number(e.target.value),
                                                     )
@@ -285,27 +267,27 @@ export function LocationDialogForm() {
                                                 type="number"
                                             />
                                         </FormControl>
-                                        <FormMessage/>
+                                        <FormMessage />
                                     </FormItem>
-                                ) }
+                                )}
                             />
                         </div>
 
                         <FormField
-                            control={ form.control }
+                            control={form.control}
                             name="description"
-                            render={ ({ field }) => (
+                            render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
                                         <Textarea
                                             placeholder="Optional description"
-                                            { ...field }
+                                            {...field}
                                         />
                                     </FormControl>
-                                    <FormMessage/>
+                                    <FormMessage />
                                 </FormItem>
-                            ) }
+                            )}
                         />
 
                         <DialogFooter>

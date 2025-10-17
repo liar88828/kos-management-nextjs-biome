@@ -1,21 +1,22 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { Room } from "@/app/rooms/room-type";
+import type { RoomType } from "@/app/rooms/room-type";
+
 
 type RoomStore = {
-    rooms: Room[];
+    rooms: RoomType[];
     query: string;
     // filtered: Room[];
-    setRooms: (rooms: Room[]) => void;
+    setRooms: (rooms: RoomType[]) => void;
     setQuery: (query: string) => void;
-    addRoom: (room: Room) => void;
-    updateRoom: (room: Room) => void;
+    addRoom: (room: RoomType) => void;
+    updateRoom: (room: RoomType) => void;
     deleteRoom: (id: string) => void;
 };
 
 export const useRoomStore = create<RoomStore>()(
     persist(
-        (set, get) => ({
+        (set, _get) => ({
             addRoom: (room) => {
                 set((state) => ({ rooms: [ room, ...state.rooms ] }));
             },

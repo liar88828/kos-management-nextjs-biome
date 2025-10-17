@@ -22,6 +22,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 
+
 export type Expense = {
     id: string;
     kategori:

@@ -1,11 +1,9 @@
 "use client";
 import { Eye } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect } from "react";
 import { LocationDelete } from "@/app/locations/location-delete";
-import type { Room } from "@/app/rooms/room-type";
-import { RoomForm } from "@/components/room-form";
+import { RoomForm } from "@/app/rooms/room-form";
+import MyToolTip from "@/components/mini/my-tooltip";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,18 +20,12 @@ import { formatPrice } from "@/lib/format";
 import { useRoomStore } from "@/store/useRoomStore";
 
 
-export function RoomPage({ roomsProps }: { roomsProps: Room[] }) {
-    const params = useParams<{ id_location: string }>();
-    console.log(params);
-    const {
-        setQuery,
-        updateRoom,
-        addRoom,
-        deleteRoom,
-        query,
-        rooms,
-        setRooms,
-    } = useRoomStore();
+export function RoomPage() {
+    // { roomsProps }: { roomsProps: Room[] }
+    // const params = useParams<{ id_location: string }>();
+    // console.log(params);
+    const { setQuery, updateRoom, addRoom, deleteRoom, query, rooms } =
+        useRoomStore();
 
     const filtered = rooms.filter((r) => {
         const q = query.toLowerCase();
@@ -45,10 +37,6 @@ export function RoomPage({ roomsProps }: { roomsProps: Room[] }) {
             // (r.hargaTahunan?.toString().includes(q) ?? false)
         );
     });
-
-    useEffect(() => {
-        setRooms(roomsProps);
-    }, [ roomsProps, setRooms ]);
 
     return (
         <Card>
@@ -112,11 +100,17 @@ export function RoomPage({ roomsProps }: { roomsProps: Room[] }) {
 
                                 <TableCell className="text-right">
                                     <div className="flex justify-end gap-2">
-                                        <Button asChild variant={ "outline" }>
-                                            <Link href={ `/rooms/${ r.id }` }>
-                                                <Eye/> Detail Room
-                                            </Link>
-                                        </Button>
+                                        <MyToolTip text="Detail Room">
+                                            <Button
+                                                asChild
+                                                size="sm"
+                                                variant={ "outline" }
+                                            >
+                                                <Link href={ `/rooms/${ r.id }` }>
+                                                    <Eye/>
+                                                </Link>
+                                            </Button>
+                                        </MyToolTip>
                                         <RoomForm
                                             defaultValue={ r }
                                             onSubmitAction={ updateRoom }

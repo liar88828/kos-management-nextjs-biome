@@ -1,10 +1,12 @@
-'use client'
+"use client";
 import {
     BarChart,
     Bed,
     CreditCard,
     GalleryVerticalEnd,
-    Home, House, MapPinHouse,
+    Home,
+    House,
+    MapPinHouse,
     Receipt,
     Users,
 } from "lucide-react";
@@ -25,6 +27,7 @@ import {
     SidebarMenuSubItem,
     SidebarRail,
 } from "@/components/ui/sidebar";
+
 
 type NavData = {
     title: string;
@@ -76,14 +79,13 @@ const navData: NavData[] = [
                 url: "/reports",
             },
         ],
-
     },
 ];
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const pathname = usePathname()
-    console.log(pathname)
+    const pathname = usePathname();
+    console.log(pathname);
     return (
         <Sidebar { ...props }>
             <SidebarHeader>
@@ -134,7 +136,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                                     >
                                                         <SidebarMenuSubButton
                                                             asChild
-                                                            isActive={ pathname.includes(sub.url) }
+                                                            isActive={ pathname.includes(
+                                                                sub.url,
+                                                            ) }
                                                         >
                                                             <Link
                                                                 className="flex items-center gap-2 text-nowrap"

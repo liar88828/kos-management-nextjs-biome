@@ -1,21 +1,26 @@
 import { CalendarDays, Mail, MapPin, Phone } from "lucide-react";
-import type { LocationType } from "@/app/locations/location-type";
-import { exampleRooms } from "@/app/rooms/room-example";
+// import type { LocationType } from "@/app/locations/location-type";
 import { RoomPage } from "@/app/rooms/room-page";
-import { NotFoundPage } from "@/components/notFoundPage";
+import { NotFoundPage } from "@/components/mini/notFoundPage";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatDate } from "@/lib/format";
+import { useLocationStore } from "@/store/useLocationStore";
+import type { LocationType } from "./location-schema";
 
 
-export function LocationDetailPage({ location }: { location?: LocationType }) {
-    if (!location) {
-        return <NotFoundPage/>;
-    }
+export function LocationDetailPage(
+    // { location }: { location?: LocationType }
+    { idLocation }: { idLocation: string },
+) {
+    const getLocationById = useLocationStore((state) => state.getLocationById);
+    const location = getLocationById(idLocation);
 
+    if (!location) return <NotFoundPage/>;
     return (
         <>
             <LocationDetail location={ location }/>
-            <RoomPage roomsProps={ exampleRooms }/>
+            <RoomPage/>
         </>
     );
 }
@@ -73,11 +78,11 @@ export function LocationDetail({ location }: { location: LocationType }) {
                     </p>
                     <p className="mt-2 flex items-center gap-2">
                         <CalendarDays className="h-4 w-4 text-muted-foreground"/>{ " " }
-                        Created: { location.createdAt.toLocaleDateString() }
+                        Created: { formatDate(location.createdAt) }
                     </p>
                     <p className="mt-2 flex items-center gap-2">
                         <CalendarDays className="h-4 w-4 text-muted-foreground"/>{ " " }
-                        Updated: { location.updatedAt.toLocaleDateString() }
+                        Updated: { formatDate(location.updatedAt) }
                     </p>
                 </div>
             </CardContent>

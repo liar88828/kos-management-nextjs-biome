@@ -1,5 +1,5 @@
-import type { Room } from "@/app/rooms/room-type";
 import type { Tenant } from "@/app/tenants/tenant-type";
+import type { RoomType } from "../rooms/room-type";
 
 export type Invoicexx = {
     id: string;
@@ -26,5 +26,5 @@ export type LocationType = {
     description?: string;
     createdAt: Date;
     updatedAt: Date;
-    room?: Room[];
+    room?: RoomType[];
 };

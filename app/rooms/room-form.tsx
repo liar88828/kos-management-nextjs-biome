@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Room } from "@/app/rooms/room-type";
+import type { RoomType } from "@/app/rooms/room-type";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -20,53 +20,53 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import MyToolTip from "@/components/mini/my-tooltip";
+import { EditIcon } from "lucide-react";
 
 type Props = {
-    defaultValue?: Partial<Room>;
-    onSubmitAction: (room: Room) => void;
+    defaultValue?: Partial<RoomType>;
+    onSubmitAction: (room: RoomType) => void;
     triggerLabel?: string;
 };
 
-
 export function RoomForm({
-                             onSubmitAction,
-                             defaultValue,
-                             triggerLabel = "Tambah Kamar",
-                         }: Props) {
-    const [ open, setOpen ] = useState(false);
-    const [ nomor, setNomor ] = useState(defaultValue?.nomor ?? "");
-    const [ status, setStatus ] = useState<Room["status"]>(
+    onSubmitAction,
+    defaultValue,
+    triggerLabel = "Tambah Kamar",
+}: Props) {
+    const [open, setOpen] = useState(false);
+    const [nomor, setNomor] = useState(defaultValue?.nomor ?? "");
+    const [status, setStatus] = useState<RoomType["status"]>(
         defaultValue?.status ?? "kosong",
     );
-    const [ hargaBulanan, setHargaBulanan ] = useState(
+    const [hargaBulanan, setHargaBulanan] = useState(
         defaultValue?.hargaBulanan?.toString() ?? "",
     );
-    const [ hargaTahunan, setHargaTahunan ] = useState(
+    const [hargaTahunan, setHargaTahunan] = useState(
         defaultValue?.hargaTahunan?.toString() ?? "",
     );
-    const [ fasilitas, setFasilitas ] = useState(
+    const [fasilitas, setFasilitas] = useState(
         (defaultValue?.fasilitas ?? []).join(", "),
     );
-    const [ foto, setFoto ] = useState(defaultValue?.foto ?? "");
+    const [foto, setFoto] = useState(defaultValue?.foto ?? "");
 
     useEffect(() => {
         setNomor(defaultValue?.nomor ?? "");
-        setStatus((defaultValue?.status as Room["status"]) ?? "kosong");
+        setStatus((defaultValue?.status as RoomType["status"]) ?? "kosong");
         setHargaBulanan(defaultValue?.hargaBulanan?.toString() ?? "");
         setHargaTahunan(defaultValue?.hargaTahunan?.toString() ?? "");
         setFasilitas((defaultValue?.fasilitas ?? []).join(", "));
         setFoto(defaultValue?.foto ?? "");
-    }, [ defaultValue ]);
-
+    }, [defaultValue]);
 
     function handleSubmit() {
         if (!nomor || !hargaBulanan) return;
-        const r: Room = {
+        const r: RoomType = {
             createdAt: new Date(),
             fasilitas: fasilitas
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean),
+                .split(",")
+                .map((s) => s.trim())
+                .filter(Boolean),
             foto: foto || undefined,
             hargaBulanan: Number(hargaBulanan),
             hargaTahunan: hargaTahunan ? Number(hargaTahunan) : 0,
@@ -82,21 +82,19 @@ export function RoomForm({
         setOpen(false);
     }
 
-
     return (
-        <Dialog onOpenChange={ setOpen } open={ open }>
+        <Dialog onOpenChange={setOpen} open={open}>
             <DialogTrigger asChild>
-                <Button
-                    className="bg-primary text-primary-foreground hover:opacity-90"
-                    size="sm"
-                >
-                    { triggerLabel }
-                </Button>
+                <MyToolTip text={triggerLabel}>
+                    <Button size="sm">
+                        <EditIcon />
+                    </Button>
+                </MyToolTip>
             </DialogTrigger>
             <DialogContent className="max-w-lg">
                 <DialogHeader>
                     <DialogTitle>
-                        { defaultValue?.id ? "Edit Kamar" : "Tambah Kamar" }
+                        {defaultValue?.id ? "Edit Kamar" : "Tambah Kamar"}
                     </DialogTitle>
                 </DialogHeader>
 
@@ -105,22 +103,22 @@ export function RoomForm({
                         <Label htmlFor="nomor">Nomor Kamar</Label>
                         <Input
                             id="nomor"
-                            onChange={ (e) => setNomor(e.target.value) }
+                            onChange={(e) => setNomor(e.target.value)}
                             placeholder="Contoh: A-01"
-                            value={ nomor }
+                            value={nomor}
                         />
                     </div>
 
                     <div className="grid gap-2">
                         <Label>Status</Label>
                         <Select
-                            onValueChange={ (v) =>
-                                setStatus(v as Room["status"])
+                            onValueChange={(v) =>
+                                setStatus(v as RoomType["status"])
                             }
-                            value={ status }
+                            value={status}
                         >
                             <SelectTrigger>
-                                <SelectValue placeholder="Pilih status"/>
+                                <SelectValue placeholder="Pilih status" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="kosong">Kosong</SelectItem>
@@ -140,11 +138,11 @@ export function RoomForm({
                             <Input
                                 id="hargaBulanan"
                                 inputMode="numeric"
-                                onChange={ (e) =>
+                                onChange={(e) =>
                                     setHargaBulanan(e.target.value)
                                 }
                                 type="number"
-                                value={ hargaBulanan }
+                                value={hargaBulanan}
                             />
                         </div>
                         <div className="grid gap-2">
@@ -154,11 +152,11 @@ export function RoomForm({
                             <Input
                                 id="hargaTahunan"
                                 inputMode="numeric"
-                                onChange={ (e) =>
+                                onChange={(e) =>
                                     setHargaTahunan(e.target.value)
                                 }
                                 type="number"
-                                value={ hargaTahunan }
+                                value={hargaTahunan}
                             />
                         </div>
                     </div>
@@ -169,9 +167,9 @@ export function RoomForm({
                         </Label>
                         <Textarea
                             id="fasilitas"
-                            onChange={ (e) => setFasilitas(e.target.value) }
+                            onChange={(e) => setFasilitas(e.target.value)}
                             placeholder="AC, Kamar mandi dalam, WiFi"
-                            value={ fasilitas }
+                            value={fasilitas}
                         />
                     </div>
 
@@ -179,24 +177,24 @@ export function RoomForm({
                         <Label htmlFor="foto">Foto (URL opsional)</Label>
                         <Input
                             id="foto"
-                            onChange={ (e) => setFoto(e.target.value) }
+                            onChange={(e) => setFoto(e.target.value)}
                             placeholder="/placeholder.jpg"
-                            value={ foto }
+                            value={foto}
                         />
                     </div>
 
                     <div className="flex justify-end gap-2">
                         <Button
-                            onClick={ () => setOpen(false) }
+                            onClick={() => setOpen(false)}
                             variant="secondary"
                         >
                             Batal
                         </Button>
                         <Button
                             className="bg-primary text-primary-foreground hover:opacity-90"
-                            onClick={ handleSubmit }
+                            onClick={handleSubmit}
                         >
-                            { defaultValue?.id ? "Simpan Perubahan" : "Tambah" }
+                            {defaultValue?.id ? "Simpan Perubahan" : "Tambah"}
                         </Button>
                     </div>
                 </div>

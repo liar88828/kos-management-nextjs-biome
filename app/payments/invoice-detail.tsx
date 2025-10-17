@@ -1,22 +1,26 @@
 "use client";
 
-import type { Invoice } from "@/app/payments/invoice-type";
 import type { Tenant } from "@/app/tenants/tenant-type";
-import { NotFoundPage } from "@/components/notFoundPage";
+import { NotFoundPage } from "@/components/mini/notFoundPage";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useInvoiceStore } from "@/store/useInvoiceStore";
+
 
 type InvoiceDetailProps = {
-    invoice?: Invoice;
+    // invoice?: Invoice;
+    idPayment: string;
 };
 
-export default function InvoiceDetail({ invoice }: InvoiceDetailProps) {
-    if (!invoice) {
-        return <NotFoundPage/>;
-    }
+export default function InvoiceDetail({
+                                          // invoice
+                                          idPayment,
+                                      }: InvoiceDetailProps) {
+    const invoice = useInvoiceStore((state) => state.getInvoicebyId)(idPayment);
 
+    if (!invoice) return <NotFoundPage/>;
     return (
         <div className="mx-auto max-w-3xl p-6">
             <Card className="shadow-lg">

@@ -1,7 +1,8 @@
-import { exampleInvoices } from "@/app/payments/invoiceExample";
-import type { Room } from "@/app/rooms/room-type";
+import type { RoomType } from "@/app/rooms/room-type";
+import { exampleInvoices } from "../payments/invoice-example";
 
-export const exampleRooms: Room[] = [
+
+export const exampleRooms: RoomType[] = [
     {
         createdAt: new Date("2025-01-10"),
         deposit: 500000,

@@ -1,6 +1,12 @@
-import { exampleTenant } from "@/app/tenants/tenant-example";
-import { TenantDetail } from "@/app/tenants/tenantDetail";
+import { TenantDetail } from "../tenant-detail";
 
-export default function Page() {
-    return <TenantDetail tenant={ exampleTenant }/>;
+
+export default async function Page(page: PageProps<"/tenants/[id_tenant]">) {
+    const idTenant = (await page.params).id_tenant;
+    return (
+        <TenantDetail
+            idTenant={ idTenant }
+            // tenant={exampleTenant}
+        />
+    );
 }

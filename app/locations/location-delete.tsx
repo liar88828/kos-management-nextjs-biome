@@ -1,5 +1,6 @@
 import { Trash } from "lucide-react";
 import React from "react";
+import MyToolTip from "@/components/mini/my-tooltip";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -20,10 +21,11 @@ export function LocationDelete({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button size="sm" variant="destructive">
-                    <Trash/>
-                    Delete
-                </Button>
+                <MyToolTip text="Delete">
+                    <Button size="sm" variant="destructive">
+                        <Trash/>
+                    </Button>
+                </MyToolTip>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

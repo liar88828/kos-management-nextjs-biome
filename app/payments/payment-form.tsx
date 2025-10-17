@@ -11,9 +11,14 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import type { InvoiceType } from "./invoice-schema";
 
 
-export function PaymentsForm() {
+export function PaymentsForm({
+                                 saveForm,
+                             }: {
+    saveForm: (data: InvoiceType) => void;
+}) {
     const [ form, setForm ] = useState({
         jumlah: "" as unknown as number | string,
         kamar: "",
@@ -48,13 +53,15 @@ export function PaymentsForm() {
             status: "menunggu",
             tanggalTerbit: "",
         };
-        // setInvoices((prev) => [ newInvoice, ...prev ]);
-        setForm({
-            jumlah: "" as any,
-            kamar: "",
-            penyewa: "",
-            periode: "",
-        });
+        // // setInvoices((prev) => [ newInvoice, ...prev ]);
+        // setForm({
+        //     jumlah: "" as any,
+        //     kamar: "",
+        //     penyewa: "",
+        //     periode: "",
+        // });
+        //
+        saveForm(newInvoice);
     }
 
 

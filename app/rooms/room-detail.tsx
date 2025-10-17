@@ -1,28 +1,29 @@
 "use client";
 
 import { PaymentPage } from "@/app/payments/payment-page";
-import type { Room } from "@/app/rooms/room-type";
-import { NotFoundPage } from "@/components/notFoundPage";
+import type { RoomType } from "@/app/rooms/room-type";
+import { NotFoundPage } from "@/components/mini/notFoundPage";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 
 
 interface RoomDetailProps {
-    room?: Room;
+    room?: RoomType;
 }
 
 
 export default function RoomDetailPage({ room }: RoomDetailProps) {
-
     if (!room) {
-        return <NotFoundPage/>
+        return <NotFoundPage/>;
     }
 
     return (
         <>
             <RoomDetail room={ room }/>
-            <PaymentPage invoices={ room.historyInvoice }/>
+            <PaymentPage
+                // invoices={room.historyInvoice}
+            />
         </>
     );
 }
@@ -61,15 +62,11 @@ export function RoomDetail({ room }: Required<RoomDetailProps>) {
                 <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                         <p className="font-medium">Harga Bulanan</p>
-                        <p>
-                            Rp { room.hargaBulanan.toLocaleString("id-ID") }
-                        </p>
+                        <p>Rp { room.hargaBulanan.toLocaleString("id-ID") }</p>
                     </div>
                     <div>
                         <p className="font-medium">Harga Tahunan</p>
-                        <p>
-                            Rp { room.hargaTahunan.toLocaleString("id-ID") }
-                        </p>
+                        <p>Rp { room.hargaTahunan.toLocaleString("id-ID") }</p>
                     </div>
                     <div>
                         <p className="font-medium">Lantai</p>
@@ -96,7 +93,7 @@ export function RoomDetail({ room }: Required<RoomDetailProps>) {
                 <div>
                     <p className="mb-1 font-medium">Fasilitas</p>
                     <div className="flex flex-wrap gap-2">
-                        { room.fasilitas.map((f,) => (
+                        { room.fasilitas.map((f) => (
                             <Badge key={ f } variant="outline">
                                 { f }
                             </Badge>
@@ -114,8 +111,5 @@ export function RoomDetail({ room }: Required<RoomDetailProps>) {
                 ) }
             </CardContent>
         </Card>
-
     );
 }
-
-
