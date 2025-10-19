@@ -6,10 +6,14 @@ export function formatPrice(rawPrice: number) {
     }).format(rawPrice);
 }
 
-
 export function formatDate(rawDate: string | number | undefined | Date) {
     if (!rawDate) {
         return "-";
     }
-    return new Date(rawDate).toLocaleString("id-ID");
+    return new Date(rawDate).toLocaleDateString("id-ID", {
+        weekday: "long",
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+    });
 }

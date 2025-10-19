@@ -1,8 +1,8 @@
 "use client";
-import { Eye } from "lucide-react";
+import { CreditCardIcon, UserCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { PaymentsForm } from "@/app/payments/payment-form";
-import { Button } from "@/components/ui/button";
+import { ButtonToolTip } from "@/components/mini/my-tooltip";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     Table,
@@ -12,11 +12,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { formatPrice } from "@/lib/format";
 import { useInvoiceStore } from "@/store/useInvoiceStore";
 
 
 export function PaymentPage() {
-// { invoices }: { invoices: Invoice[] }
+    // { invoices }: { invoices: Invoice[] }
     const { invoices, addInvoice } = useInvoiceStore();
     return (
         <Card>
@@ -49,9 +50,7 @@ export function PaymentPage() {
                                 <TableCell>{ inv.penyewa }</TableCell>
                                 <TableCell>{ inv.kamar }</TableCell>
                                 <TableCell>{ inv.periode }</TableCell>
-                                <TableCell>
-                                    Rp { inv.jumlah.toLocaleString("id-ID") }
-                                </TableCell>
+                                <TableCell>{ formatPrice(inv.jumlah) }</TableCell>
                                 <TableCell
                                     className={
                                         inv.status === "lunas"
@@ -64,19 +63,25 @@ export function PaymentPage() {
                                         : "Menunggu" }
                                 </TableCell>
                                 <TableCell className="space-x-2 text-right">
-                                    <Button asChild variant={ "outline" }>
+                                    <ButtonToolTip
+                                        asChild
+                                        text={ "Detail Payment" }
+                                        variant={ "outline" }
+                                    >
                                         <Link href={ `/payments/${ inv.id }` }>
-                                            <Eye/>
-                                            Detail Payment
+                                            <CreditCardIcon/>
                                         </Link>
-                                    </Button>
+                                    </ButtonToolTip>
 
-                                    <Button asChild variant={ "outline" }>
+                                    <ButtonToolTip
+                                        asChild
+                                        text={ "Detail Customer" }
+                                        variant={ "outline" }
+                                    >
                                         <Link href={ `/tenants/${ inv.id }` }>
-                                            <Eye/>
-                                            Detail Customer
+                                            <UserCircleIcon/>
                                         </Link>
-                                    </Button>
+                                    </ButtonToolTip>
                                 </TableCell>
                             </TableRow>
                         )) }

@@ -1,7 +1,10 @@
+"use client";
+
+import type { LocationType } from "@/app/locations/location-schema";
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { LocationType } from "@/app/locations/location-schema";
+
 
 type LocationStore = {
     locations: LocationType[];

@@ -1,6 +1,9 @@
+"use client";
+import { PlusIcon } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
 import type { Invoice } from "@/app/payments/invoice-type";
+import { ButtonToolTip } from "@/components/mini/my-tooltip";
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -68,12 +71,13 @@ export function PaymentsForm({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button
+                <ButtonToolTip
                     className="bg-primary text-primary-foreground"
                     size="sm"
+                    text={ "Tambah Tagihan" }
                 >
-                    Tambah Tagihan
-                </Button>
+                    <PlusIcon/>
+                </ButtonToolTip>
             </DialogTrigger>
             <DialogContent className="max-w-lg">
                 <DialogHeader>

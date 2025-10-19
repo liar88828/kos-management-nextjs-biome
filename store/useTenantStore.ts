@@ -1,7 +1,9 @@
+"use client";
+import type { TenantType } from "@/app/tenants/tenant-schema";
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { TenantType } from "@/app/tenants/tenant-schema";
+
 
 type TenantStore = {
     tenants: TenantType[];
@@ -20,7 +22,7 @@ export const useTenantStore = create<TenantStore>()(
         (set, get) => ({
             addTenant: (tenant) => {
                 set((state) => ({
-                    tenants: [{ ...tenant, id: nanoid() }, ...state.tenants],
+                    tenants: [ { ...tenant, id: nanoid() }, ...state.tenants ],
                 }));
             },
 

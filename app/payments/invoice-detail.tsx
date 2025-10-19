@@ -1,7 +1,7 @@
 "use client";
 
 import type { Tenant } from "@/app/tenants/tenant-type";
-import { NotFoundPage } from "@/components/mini/notFoundPage";
+import { PageNotFound } from "@/components/mini/pageNotFound";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,7 +20,7 @@ export default function InvoiceDetail({
                                       }: InvoiceDetailProps) {
     const invoice = useInvoiceStore((state) => state.getInvoicebyId)(idPayment);
 
-    if (!invoice) return <NotFoundPage/>;
+    if (!invoice) return <PageNotFound/>;
     return (
         <div className="mx-auto max-w-3xl p-6">
             <Card className="shadow-lg">

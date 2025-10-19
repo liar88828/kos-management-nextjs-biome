@@ -1,7 +1,8 @@
-import { CalendarDays, Mail, MapPin, Phone } from "lucide-react";
 // import type { LocationType } from "@/app/locations/location-type";
+
+import { CalendarDays, Mail, MapPin, Phone } from "lucide-react";
 import { RoomPage } from "@/app/rooms/room-page";
-import { NotFoundPage } from "@/components/mini/notFoundPage";
+import { PageNotFound } from "@/components/mini/pageNotFound";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDate } from "@/lib/format";
@@ -16,7 +17,7 @@ export function LocationDetailPage(
     const getLocationById = useLocationStore((state) => state.getLocationById);
     const location = getLocationById(idLocation);
 
-    if (!location) return <NotFoundPage/>;
+    if (!location) return <PageNotFound/>;
     return (
         <>
             <LocationDetail location={ location }/>

@@ -1,4 +1,4 @@
-import { expensesExample } from "@/app/expenses/expensesExample";
+import { expensesExample } from "@/app/expenses/expenses-example";
 import { ExpensesPage } from "@/app/expenses/expensesPage";
 
 

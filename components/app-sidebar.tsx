@@ -3,16 +3,18 @@ import {
     BarChart,
     Bed,
     CreditCard,
+    FileClockIcon,
     GalleryVerticalEnd,
     Home,
-    House,
     MapPinHouse,
     Receipt,
+    User2Icon,
+    UserIcon,
     Users,
 } from "lucide-react";
 import type { Route } from "next";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import type * as React from "react";
 import {
     Sidebar,
@@ -77,6 +79,33 @@ const navData: NavData[] = [
                 icon: BarChart,
                 title: "Laporan",
                 url: "/reports",
+            },
+        ],
+    },
+    {
+        icon: User2Icon,
+        title: "User",
+        url: "/user-tenant",
+        items: [
+            // {
+            //     icon: BarChart,
+            //     title: "Laporan",
+            //     url: "/reports",
+            // },
+            {
+                icon: Bed,
+                title: "Room",
+                url: "/user-tenant/booking",
+            },
+            {
+                icon: UserIcon,
+                title: "Profile",
+                url: "/user-tenant/profile",
+            },
+            {
+                icon: FileClockIcon,
+                title: "History",
+                url: "/user-tenant/history",
             },
         ],
     },

@@ -3,6 +3,7 @@
 import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ModeToggle } from "@/components/mini/dark-mode";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+
 
 export default function AppHeader() {
     const pathname = usePathname();
@@ -25,41 +27,41 @@ export default function AppHeader() {
     });
 
     return (
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b">
-            <div className="flex items-center gap-2 px-3">
-                <SidebarTrigger />
-                <Separator className="mr-2 h-4" orientation="vertical" />
-
+        <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-3">
+            <div className="flex items-center gap-2">
+                <SidebarTrigger/>
+                <Separator className="mr-2 h-4" orientation="vertical"/>
                 <Breadcrumb>
                     <BreadcrumbList>
-                        {/* Home link */}
+                        {/* Home link */ }
                         <BreadcrumbItem>
                             <BreadcrumbLink asChild>
                                 <Link href="/">Home</Link>
                             </BreadcrumbLink>
                         </BreadcrumbItem>
 
-                        {breadcrumbs.map((bc, index) => (
-                            <div className="flex items-center" key={bc.href}>
-                                <BreadcrumbSeparator />
+                        { breadcrumbs.map((bc, index) => (
+                            <div className="flex items-center" key={ bc.href }>
+                                <BreadcrumbSeparator/>
                                 <BreadcrumbItem>
-                                    {index === breadcrumbs.length - 1 ? (
+                                    { index === breadcrumbs.length - 1 ? (
                                         <BreadcrumbPage>
-                                            {bc.label}
+                                            { bc.label }
                                         </BreadcrumbPage>
                                     ) : (
                                         <BreadcrumbLink asChild>
-                                            <Link href={bc.href as Route}>
-                                                {bc.label}
+                                            <Link href={ bc.href as Route }>
+                                                { bc.label }
                                             </Link>
                                         </BreadcrumbLink>
-                                    )}
+                                    ) }
                                 </BreadcrumbItem>
                             </div>
-                        ))}
+                        )) }
                     </BreadcrumbList>
                 </Breadcrumb>
             </div>
+            <ModeToggle/>
         </header>
     );
 }

@@ -17,11 +17,16 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import type  { TenantType } from "./tenant-schema";
+import type { TenantType } from "./tenant-schema";
 
-export function TenantForm({ saveForm }: {saveForm:(data:TenantType)=>void}) {
-    const [open, setOpen] = useState(false);
-    const [form, setForm] = useState<TenantType>({
+
+export function TenantForm({
+                               saveForm,
+                           }: {
+    saveForm: (data: TenantType) => void;
+}) {
+    const [ open, setOpen ] = useState(false);
+    const [ form, setForm ] = useState<TenantType>({
         kamar: "",
         kontak: "",
         ktp: "",
@@ -29,8 +34,8 @@ export function TenantForm({ saveForm }: {saveForm:(data:TenantType)=>void}) {
         nama: "",
         pekerjaan: "",
         statusPembayaran: "tertunggak" as "lunas" | "tertunggak",
-
     });
+
 
     function resetForm() {
         setForm({
@@ -44,17 +49,19 @@ export function TenantForm({ saveForm }: {saveForm:(data:TenantType)=>void}) {
         });
     }
 
+
     function addTenant(e: React.FormEvent) {
         e.preventDefault();
         if (!form.nama || !form.kamar || !form.masuk) return;
-        `t-${Date.now()}`;
+        `t-${ Date.now() }`;
         setOpen(false);
         resetForm();
-        saveForm(form)
+        saveForm(form);
     }
 
+
     return (
-        <Dialog onOpenChange={setOpen} open={open}>
+        <Dialog onOpenChange={ setOpen } open={ open }>
             <DialogTrigger asChild>
                 <Button
                     className="bg-primary text-primary-foreground"
@@ -67,80 +74,80 @@ export function TenantForm({ saveForm }: {saveForm:(data:TenantType)=>void}) {
                 <DialogHeader>
                     <DialogTitle>Tambah Penyewa</DialogTitle>
                 </DialogHeader>
-                <form className="space-y-4" onSubmit={addTenant}>
+                <form className="space-y-4" onSubmit={ addTenant }>
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div>
                             <Label htmlFor="nama">Nama</Label>
                             <Input
                                 id="nama"
-                                onChange={(e) =>
+                                onChange={ (e) =>
                                     setForm({
                                         ...form,
                                         nama: e.target.value,
                                     })
                                 }
                                 required
-                                value={form.nama}
+                                value={ form.nama }
                             />
                         </div>
                         <div>
                             <Label htmlFor="kontak">Kontak</Label>
                             <Input
                                 id="kontak"
-                                onChange={(e) =>
+                                onChange={ (e) =>
                                     setForm({
                                         ...form,
                                         kontak: e.target.value,
                                     })
                                 }
-                                value={form.kontak}
+                                value={ form.kontak }
                             />
                         </div>
                         <div>
                             <Label htmlFor="pekerjaan">Pekerjaan</Label>
                             <Input
                                 id="pekerjaan"
-                                onChange={(e) =>
+                                onChange={ (e) =>
                                     setForm({
                                         ...form,
                                         pekerjaan: e.target.value,
                                     })
                                 }
-                                value={form.pekerjaan}
+                                value={ form.pekerjaan }
                             />
                         </div>
                         <div>
                             <Label htmlFor="ktp">No. KTP</Label>
                             <Input
                                 id="ktp"
-                                onChange={(e) =>
+                                onChange={ (e) =>
                                     setForm({
                                         ...form,
                                         ktp: e.target.value,
                                     })
                                 }
-                                value={form.ktp}
+                                value={ form.ktp }
                             />
                         </div>
                         <div>
                             <Label htmlFor="kamar">Kamar</Label>
                             <Input
                                 id="kamar"
-                                onChange={(e) =>
+                                onChange={ (e) =>
                                     setForm({
                                         ...form,
                                         kamar: e.target.value,
                                     })
                                 }
                                 required
-                                value={form.kamar}
+                                value={ form.kamar }
                             />
                         </div>
                         <div>
                             <Label htmlFor="masuk">Tanggal Masuk</Label>
                             <Input
                                 id="masuk"
-                                onChange={(e) =>
+                                onChange={ (e) =>
                                     setForm({
                                         ...form,
                                         masuk: e.target.value,
@@ -148,22 +155,22 @@ export function TenantForm({ saveForm }: {saveForm:(data:TenantType)=>void}) {
                                 }
                                 required
                                 type="date"
-                                value={form.masuk}
+                                value={ form.masuk }
                             />
                         </div>
                         <div className="md:col-span-2">
                             <Label>Status Pembayaran</Label>
                             <Select
-                                onValueChange={(v) =>
+                                onValueChange={ (v) =>
                                     setForm({
                                         ...form,
                                         statusPembayaran: v as any,
                                     })
                                 }
-                                value={form.statusPembayaran}
+                                value={ form.statusPembayaran }
                             >
                                 <SelectTrigger>
-                                    <SelectValue placeholder="Pilih status" />
+                                    <SelectValue placeholder="Pilih status"/>
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="lunas">Lunas</SelectItem>
@@ -176,7 +183,7 @@ export function TenantForm({ saveForm }: {saveForm:(data:TenantType)=>void}) {
                     </div>
                     <div className="flex justify-end gap-2">
                         <Button
-                            onClick={() => setOpen(false)}
+                            onClick={ () => setOpen(false) }
                             type="button"
                             variant="outline"
                         >

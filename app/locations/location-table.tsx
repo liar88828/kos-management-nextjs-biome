@@ -39,7 +39,7 @@ export function LocationTable() {
                     </TableHeader>
                     <TableBody>
                         { locations.map((loc) => (
-                            <TableRow key={ loc.id }>
+                            <TableRow key={ loc.id + loc.key }>
                                 <TableCell className="font-medium">
                                     <p className={ "font-bold" }>{ loc.name }</p>
                                     <p className={ "text-primary/70" }>

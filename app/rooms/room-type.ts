@@ -1,7 +1,7 @@
 import type { Invoice } from "@/app/payments/invoice-type";
 
 
-export type RoomType = {
+export type _RoomType = {
     id: string;
     nomor: string; // nomor kamar
     status: "kosong" | "terisi" | "renovasi";
@@ -9,7 +9,7 @@ export type RoomType = {
     hargaBulanan: number;
     fasilitas: string[]; // contoh: ["AC", "Kasur", "Lemari"]
     foto?: string;
-
+    beds: number;
     // relations
     historyInvoice: Invoice[];
 

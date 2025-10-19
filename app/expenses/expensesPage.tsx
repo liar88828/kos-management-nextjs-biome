@@ -2,6 +2,7 @@
 
 import type React from "react";
 import { useState } from "react";
+import type { Expense } from "@/app/expenses/expenses-type";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -21,21 +22,6 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-
-
-export type Expense = {
-    id: string;
-    kategori:
-        | "listrik"
-        | "air"
-        | "internet"
-        | "kebersihan"
-        | "perbaikan"
-        | "lainnya";
-    keterangan: string;
-    tanggal: string;
-    jumlah: number;
-};
 
 
 export function ExpensesPage({ expense }: { expense: Expense[] }) {

@@ -1,4 +1,5 @@
-import type { Expense } from "@/app/expenses/expensesPage";
+import type { Expense } from "@/app/expenses/expenses-type";
+
 
 export const expensesExample: Expense[] = [
     {

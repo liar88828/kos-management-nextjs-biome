@@ -1,5 +1,3 @@
-"use client";
-
 import { RoomPage } from "@/app/rooms/room-page";
 
 

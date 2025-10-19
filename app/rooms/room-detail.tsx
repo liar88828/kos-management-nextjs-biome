@@ -2,7 +2,7 @@
 
 import { PaymentPage } from "@/app/payments/payment-page";
 import type { RoomType } from "@/app/rooms/room-type";
-import { NotFoundPage } from "@/components/mini/notFoundPage";
+import { PageNotFound } from "@/components/mini/pageNotFound";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -15,7 +15,7 @@ interface RoomDetailProps {
 
 export default function RoomDetailPage({ room }: RoomDetailProps) {
     if (!room) {
-        return <NotFoundPage/>;
+        return <PageNotFound/>;
     }
 
     return (

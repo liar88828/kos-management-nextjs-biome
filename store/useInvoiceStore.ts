@@ -1,7 +1,10 @@
+"use client";
+
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { InvoiceType } from "@/app/payments/invoice-schema";
+
 
 type InvoiceStore = {
     invoices: InvoiceType[];
@@ -20,7 +23,7 @@ export const useInvoiceStore = create<InvoiceStore>()(
         (set, get, _get) => ({
             addInvoice: (invoice) => {
                 set((state) => ({
-                    invoices: [{ ...invoice, id: nanoid() }, ...state.invoices],
+                    invoices: [ { ...invoice, id: nanoid() }, ...state.invoices ],
                 }));
             },
 
