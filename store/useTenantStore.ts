@@ -1,5 +1,5 @@
 "use client";
-import type { TenantType } from "@/app/tenants/tenant-schema";
+import type { TenantType } from "@/app/(admin)/tenants/tenant-schema";
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -52,9 +52,7 @@ export const useTenantStore = create<TenantStore>()(
             setTenants: (tenants) => set({ tenants: tenants }),
             updateTenant: (tenant) => {
                 set((state) => ({
-                    tenants: state.tenants.map((r) =>
-                        r.id === tenant.id ? tenant : r,
-                    ),
+                    tenants: state.tenants.map((r) => (r.id === tenant.id ? tenant : r)),
                 }));
             },
         }),

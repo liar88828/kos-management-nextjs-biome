@@ -1,0 +1,63 @@
+import type { RoomType } from "@/app/(admin)/rooms/room-schema";
+import { exampleInvoices } from "../payments/invoice-example";
+
+
+export const exampleRooms: RoomType[] = [
+    {
+        createdAt: new Date("2025-01-10"),
+        deposit: 500000,
+        deskripsi: "Kamar dekat pintu utama, cocok untuk mahasiswa.",
+        fasilitas: [ "AC", "Kasur", "Lemari", "Meja Belajar" ],
+        foto: "https://example.com/room101.jpg",
+        hargaBulanan: 1200000,
+        hargaTahunan: 12000000,
+        historyInvoice: [],
+        id: "room-101",
+        isAvailableOnline: true,
+        lantai: 1,
+        luas: 16,
+        maxPenghuni: 2,
+        nomor: "101",
+        status: "kosong",
+        updatedAt: new Date("2025-09-20"),
+        beds: 2
+    },
+    {
+        createdAt: new Date("2025-02-01"),
+        deposit: 700000,
+        deskripsi: "Kamar menghadap taman, sejuk dan tenang.",
+        fasilitas: [ "Kipas Angin", "Kasur", "Meja Belajar" ],
+        foto: "https://example.com/room202.jpg",
+        hargaBulanan: 1500000,
+        hargaTahunan: 15000000,
+        historyInvoice: exampleInvoices,
+        id: "room-202",
+        isAvailableOnline: false,
+        lantai: 2,
+        luas: 18,
+        maxPenghuni: 2,
+        nomor: "202",
+        status: "terisi",
+        updatedAt: new Date("2025-09-15"),
+        beds: 2
+    },
+    {
+        createdAt: new Date("2025-03-05"),
+        deposit: 400000,
+        deskripsi: "Sedang dalam renovasi, tersedia kembali bulan depan.",
+        fasilitas: [ "Kasur", "Lemari" ],
+        foto: "https://example.com/room303.jpg",
+        hargaBulanan: 1000000,
+        hargaTahunan: 10000000,
+        historyInvoice: [],
+        id: "room-303",
+        isAvailableOnline: false,
+        lantai: 3,
+        luas: 14,
+        maxPenghuni: 1,
+        nomor: "303",
+        status: "renovasi",
+        updatedAt: new Date("2025-09-25"),
+        beds: 2
+    },
+];

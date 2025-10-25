@@ -1,9 +1,9 @@
 "use client";
 
+import type { InvoiceType } from "@/app/(admin)/payments/invoice-schema";
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { InvoiceType } from "@/app/payments/invoice-schema";
 
 
 type InvoiceStore = {
@@ -15,7 +15,7 @@ type InvoiceStore = {
     addInvoice: (invoice: InvoiceType) => void;
     updateInvoice: (invoice: InvoiceType) => void;
     deleteInvoice: (id: string) => void;
-    getInvoicebyId: (id: string) => InvoiceType | undefined;
+    getInvoiceById: (id: string) => InvoiceType | undefined;
 };
 
 export const useInvoiceStore = create<InvoiceStore>()(
@@ -27,7 +27,7 @@ export const useInvoiceStore = create<InvoiceStore>()(
                 }));
             },
 
-            getInvoicebyId: (id) => {
+            getInvoiceById: (id) => {
                 return get().invoices.find((item) => item.id === id);
             },
             deleteInvoice: (id) => {

@@ -1,17 +1,5 @@
 "use client";
-import {
-    BarChart,
-    Bed,
-    CreditCard,
-    FileClockIcon,
-    GalleryVerticalEnd,
-    Home,
-    MapPinHouse,
-    Receipt,
-    User2Icon,
-    UserIcon,
-    Users,
-} from "lucide-react";
+import { BarChart, Bed, CreditCard, FileClockIcon, GalleryVerticalEnd, Home, MapPinHouse, Receipt, User2Icon, UserIcon, Users } from "lucide-react";
 import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -84,6 +72,29 @@ const navData: NavData[] = [
     },
     {
         icon: User2Icon,
+        title: "User Admin",
+        url: "/user",
+        items: [
+            {
+                icon: Bed,
+                title: "Room",
+                url: "/user/booking",
+            },
+            {
+                icon: UserIcon,
+                title: "Profile",
+                url: "/user/profile",
+            },
+            {
+                icon: FileClockIcon,
+                title: "History",
+                url: "/user/history",
+            },
+        ],
+    },
+    // for role USER
+    {
+        icon: User2Icon,
         title: "User",
         url: "/user-tenant",
         items: [
@@ -122,14 +133,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild size="lg">
                             <Link href="#">
-                                <div
-                                    className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                                     <GalleryVerticalEnd className="size-4"/>
                                 </div>
                                 <div className="flex flex-col gap-0.5 leading-none">
-                                    <span className="font-medium">
-                                        Documentation
-                                    </span>
+                                    <span className="font-medium">Documentation</span>
                                     <span className="">v1.0.0</span>
                                 </div>
                             </Link>
@@ -146,10 +154,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             return (
                                 <SidebarMenuItem key={ item.title }>
                                     <SidebarMenuButton asChild>
-                                        <Link
-                                            className="flex items-center gap-2 font-medium"
-                                            href={ item.url }
-                                        >
+                                        <Link className="flex items-center gap-2 font-medium" href={ item.url }>
                                             <Icon className="h-4 w-4"/>
                                             { item.title }
                                         </Link>
@@ -160,22 +165,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                             { item.items.map((sub) => {
                                                 const SubIcon = sub.icon;
                                                 return (
-                                                    <SidebarMenuSubItem
-                                                        key={ sub.title }
-                                                    >
-                                                        <SidebarMenuSubButton
-                                                            asChild
-                                                            isActive={ pathname.includes(
-                                                                sub.url,
-                                                            ) }
-                                                        >
-                                                            <Link
-                                                                className="flex items-center gap-2 text-nowrap"
-                                                                href={ sub.url }
-                                                            >
-                                                                { SubIcon && (
-                                                                    <SubIcon className="h-4 w-4"/>
-                                                                ) }
+                                                    <SidebarMenuSubItem key={ sub.title }>
+                                                        <SidebarMenuSubButton asChild isActive={ pathname.includes(sub.url) }>
+                                                            <Link className="flex items-center gap-2 text-nowrap" href={ sub.url }>
+                                                                { SubIcon && <SubIcon className="h-4 w-4"/> }
                                                                 { sub.title }
                                                             </Link>
                                                         </SidebarMenuSubButton>

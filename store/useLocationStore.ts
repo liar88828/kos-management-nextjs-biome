@@ -1,6 +1,6 @@
 "use client";
 
-import type { LocationType } from "@/app/locations/location-schema";
+import type { LocationType } from "@/app/(admin)/locations/location-schema";
 import { nanoid } from "nanoid";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
@@ -61,9 +61,7 @@ export const useLocationStore = create<LocationStore>()(
             setLocations: (locations) => set({ locations: locations }),
             updateLocation: (location) => {
                 set((state) => ({
-                    locations: state.locations.map((r) =>
-                        r.id === location.id ? location : r,
-                    ),
+                    locations: state.locations.map((r) => (r.id === location.id ? location : r)),
                 }));
             },
         }),

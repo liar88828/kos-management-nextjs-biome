@@ -1,7 +1,7 @@
 "use client";
+import type { RoomType } from "@/app/(admin)/rooms/room-schema";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { RoomType } from "@/app/rooms/room-schema";
 
 
 type RoomStore = {
@@ -16,7 +16,7 @@ type RoomStore = {
     getRoomById: (id?: string) => RoomType | undefined;
     filterRoom: () => RoomType[];
     selectedRoom?: RoomType | null;
-    selectRoom: (id: string) => void;
+    selectRoom: (id?: string) => void;
     clearSelection: () => void;
 };
 

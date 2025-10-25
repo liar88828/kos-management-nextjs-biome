@@ -23,41 +23,21 @@ export function MyToolTip({ children, text }: MyToolTipProps) {
 
 
 type ButtonToolTipProps = {
-    children: ReactNode;
-    text: string;
-    className?: string;
-    size?: "default" | "sm" | "lg" | "icon";
     asChild?: boolean;
-    onClick?: () => void;
-    variant?:
-        | "default"
-        | "destructive"
-        | "outline"
-        | "secondary"
-        | "ghost"
-        | "link";
+    children: ReactNode;
+    className?: string;
+    onClickAction?: () => void;
+    size?: "default" | "sm" | "lg" | "icon";
+    text: string;
+    variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
 };
 
 
-export function ButtonToolTip({
-                                  onClick,
-                                  children,
-                                  text,
-                                  className,
-                                  variant = "default",
-                                  size = "default",
-                                  asChild = false,
-                              }: ButtonToolTipProps) {
+export function ButtonToolTip({ onClickAction, children, text, className, variant = "default", size = "default", asChild = false }: ButtonToolTipProps) {
     return (
         <Tooltip>
             <TooltipTrigger asChild>
-                <Button
-                    asChild={ asChild }
-                    className={ className }
-                    onClick={ onClick }
-                    size={ size }
-                    variant={ variant }
-                >
+                <Button asChild={ asChild } className={ className } onClick={ onClickAction } size={ size } variant={ variant }>
                     { children }
                 </Button>
             </TooltipTrigger>

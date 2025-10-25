@@ -1,21 +1,14 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as React from "react";
-import { useForm } from "react-hook-form";
-import { TenantSchema, type TenantType } from "@/app/tenants/tenant-schema";
+import { TenantSchema, type TenantType } from "@/app/(admin)/tenants/tenant-schema";
 import { Button } from "@/components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useTenantStore } from "@/store/useTenantStore";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as React from "react";
+import { useForm } from "react-hook-form";
 
 
 export function EditProfileDialog() {
@@ -57,48 +50,30 @@ export function EditProfileDialog() {
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <Label>Nama Lengkap</Label>
-                            <Input
-                                { ...register("nama") }
-                                placeholder="Nama lengkap"
-                            />
+                            <Input { ...register("nama") } placeholder="Nama lengkap"/>
                         </div>
                         <div>
                             <Label>Email</Label>
-                            <Input
-                                { ...register("email") }
-                                placeholder="email@domain.com"
-                            />
+                            <Input { ...register("email") } placeholder="email@domain.com"/>
                         </div>
 
                         <div>
                             <Label>Nomor HP</Label>
-                            <Input
-                                { ...register("kontak") }
-                                placeholder="08xxxxxxxxxx"
-                            />
+                            <Input { ...register("kontak") } placeholder="08xxxxxxxxxx"/>
                         </div>
                         <div>
                             <Label>Pekerjaan</Label>
-                            <Input
-                                { ...register("pekerjaan") }
-                                placeholder="Pekerjaan Anda"
-                            />
+                            <Input { ...register("pekerjaan") } placeholder="Pekerjaan Anda"/>
                         </div>
 
                         <div>
                             <Label>Nomor KTP</Label>
-                            <Input
-                                { ...register("ktp") }
-                                placeholder="Nomor KTP"
-                            />
+                            <Input { ...register("ktp") } placeholder="Nomor KTP"/>
                         </div>
 
                         <div>
                             <Label>Jenis Kelamin</Label>
-                            <select
-                                { ...register("jenisKelamin") }
-                                className="w-full rounded-md border bg-background px-2 py-2"
-                            >
+                            <select { ...register("jenisKelamin") } className="w-full rounded-md border bg-background px-2 py-2">
                                 <option value="pria">Pria</option>
                                 <option value="wanita">Wanita</option>
                                 <option value="lainnya">Lainnya</option>
@@ -112,10 +87,7 @@ export function EditProfileDialog() {
 
                         <div>
                             <Label>Nomor Kamar</Label>
-                            <Input
-                                { ...register("kamar") }
-                                placeholder="Nomor kamar"
-                            />
+                            <Input { ...register("kamar") } placeholder="Nomor kamar"/>
                         </div>
 
                         <div>
@@ -141,10 +113,7 @@ export function EditProfileDialog() {
 
                         <div>
                             <Label>Status Pembayaran</Label>
-                            <select
-                                { ...register("statusPembayaran") }
-                                className="w-full rounded-md border bg-background px-2 py-2"
-                            >
+                            <select { ...register("statusPembayaran") } className="w-full rounded-md border bg-background px-2 py-2">
                                 <option value="lunas">Lunas</option>
                                 <option value="tertunggak">Tertunggak</option>
                             </select>
@@ -153,32 +122,20 @@ export function EditProfileDialog() {
 
                     <div>
                         <Label>Kontak Darurat</Label>
-                        <Input
-                            { ...register("kontakDarurat") }
-                            placeholder="Nomor kontak darurat"
-                        />
+                        <Input { ...register("kontakDarurat") } placeholder="Nomor kontak darurat"/>
                     </div>
 
                     <div>
                         <Label>Catatan</Label>
-                        <Textarea
-                            { ...register("catatan") }
-                            placeholder="Catatan tambahan..."
-                        />
+                        <Textarea { ...register("catatan") } placeholder="Catatan tambahan..."/>
                     </div>
 
                     <DialogFooter className="pt-4">
-                        <Button
-                            onClick={ () => setOpen(false) }
-                            type="button"
-                            variant="outline"
-                        >
+                        <Button onClick={ () => setOpen(false) } type="button" variant="outline">
                             Batal
                         </Button>
                         <Button disabled={ formState.isSubmitting } type="submit">
-                            { formState.isSubmitting
-                                ? "Menyimpan..."
-                                : "Simpan Perubahan" }
+                            { formState.isSubmitting ? "Menyimpan..." : "Simpan Perubahan" }
                         </Button>
                     </DialogFooter>
                 </form>

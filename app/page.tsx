@@ -1,19 +1,10 @@
 "use client";
+
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, } from "@/components/ui/chart";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table";
+import { TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-    ChartContainer,
-    ChartTooltip,
-    ChartTooltipContent,
-} from "@/components/ui/chart";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
 
 
 const pemasukanData = [
@@ -32,7 +23,7 @@ export default function DashboardPage() {
 
     return (
         <>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3">
                 <Card>
                     <CardHeader>
                         <CardTitle className="text-muted-foreground text-sm">
@@ -84,51 +75,63 @@ export default function DashboardPage() {
                 </Card>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-                <Card className="lg:col-span-2">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3">
+                <Card>
                     <CardHeader>
                         <CardTitle>Grafik Pemasukan vs Pengeluaran</CardTitle>
+                        <CardDescription>January - June 2024</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <ChartContainer
                             className="h-[280px]"
                             config={ {
-                                masuk: {
+                                desktop: {
                                     label: "Pemasukan",
-                                    color: "hsl(var(--primary))",
+                                    color: "var(--chart-1)",
                                 },
-                                keluar: {
+                                mobile: {
                                     label: "Pengeluaran",
-                                    color: "hsl(var(--muted-foreground))",
+                                    color: "var(--chart-2)",
                                 },
                             } }
                         >
-                            <BarChart data={ pemasukanData }>
-                                <CartesianGrid
-                                    strokeDasharray="3 3"
-                                    vertical={ false }
-                                />
+                            <BarChart accessibilityLayer data={ pemasukanData }>
+                                <CartesianGrid vertical={ false }/>
                                 <XAxis
                                     axisLine={ false }
                                     dataKey="bulan"
+                                    tickFormatter={ (value) => value.slice(0, 3) }
                                     tickLine={ false }
+                                    tickMargin={ 10 }
                                 />
                                 <ChartTooltip
-                                    content={ <ChartTooltipContent/> }
+                                    content={
+                                        <ChartTooltipContent indicator="dashed"/>
+                                    }
+                                    cursor={ false }
                                 />
                                 <Bar
                                     dataKey="masuk"
-                                    fill="var(--color-masuk)"
+                                    fill="var(--chart-1)"
                                     radius={ 4 }
                                 />
                                 <Bar
                                     dataKey="keluar"
-                                    fill="var(--color-keluar)"
+                                    fill="var(--chart-2)"
                                     radius={ 4 }
                                 />
                             </BarChart>
                         </ChartContainer>
                     </CardContent>
+                    <CardFooter className="flex-col items-start gap-2 text-sm">
+                        <div className="flex gap-2 font-medium leading-none">
+                            Trending up by 5.2% this month{ " " }
+                            <TrendingUp className="h-4 w-4"/>
+                        </div>
+                        <div className="text-muted-foreground leading-none">
+                            Showing total visitors for the last 6 months
+                        </div>
+                    </CardFooter>
                 </Card>
 
                 <Card>
